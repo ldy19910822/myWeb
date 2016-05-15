@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>金字塔</title> 
+</head> 
+<body onload="blinklink()"> 
+<script language="javascript"> 
+function t(){ 
+var a=document.getElementById("num").value; 
+for(j=1;j<=a;j++){ 
+for(k=a*2-(j-1)*2;k>0;k--){ 
+document.write("&nbsp;"); 
+} 
+for(i=1;i<=j*2-1;i++){ 
+
+document.write("<font color='red' id='fc'>*</font>"); 
+} 
+document.write("<br/>"); 
+} 
+} 
+</script> 
+<input type="text" name="num" id="num" value="" /> 
+<input type="button" value="生成金字塔" onClick="t()"></br> 
+</body>
+</html>
+
+
+ 
+
+ 
+
+ 
+
+ 

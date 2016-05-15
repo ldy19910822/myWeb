@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title> new document </title>
+  <meta charset="utf-8">
+	<style>
+		#btLoadMore {
+			display: block;
+			width: 100%;
+			margin: 20px 0;
+			line-height: 2em;
+		}
+		.dish {
+			border-bottom: 1px solid #aaa;
+		}
+	</style>
+ </head>
+ <body>
+  <h1>使用XHR读取服务器端的响应——XML字符串格式</h1>
+	<div class="container">
+		<!-- <div class="dish">
+			<img src="img/1.jpg" alt="">
+			<h4>菜名：京酱肉丝</h4>
+			<p>价格：$20</p>
+		</div>
+		<div class="dish">
+			<img src="img/2.jpg" alt="">
+			<h4>菜名：京酱肉丝</h4>
+			<p>价格：$20</p>
+		</div>
+		<div class="dish">
+			<img src="img/3.jpg" alt="">
+			<h4>菜名：京酱肉丝</h4>
+			<p>价格：$20</p>
+		</div> -->
+	</div>
+	<button id="btLoadMore">加载更多</button>
+	<script>
+	var container = document.querySelector('.container');
+
+	btLoadMore.onclick = function(){
+		//1
+		var xhr = new XMLHttpRequest();
+		//2
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState===4){
+				if(xhr.status===200){
+					//doResponse(xhr.responseText);
+					doResponse(xhr.responseXML); //XHR可以自动的把XML格式的字符串解析为JS对象
+				}else {
+					alert('响应完成但有问题');
+				}
+			}
+		}
+		//3
+		xhr.open('GET','6-moredish.php', true);
+		//4
+		xhr.send(null);
+	}
+	function doResponse(xmlDocument){
+		console.log('开始处理响应主体数据：');
+		console.log(typeof xmlDocument);  //object
+		console.log(xmlDocument);  //XML Document - XML DOM树的根对象
+		/*DOM分为三部分：
+		*核心DOM：用于操作任意的DOM树
+		*		document.getEelementXxxx
+		*		e.parentNode /childNodes
+		*		e.previousSibling / nextSiblings
+		*	  e.nodeName / nodeType / nodeValue 
+		*HTMLDOM:用于操作HTMLDOM树
+		*XMLDOM: 用于操作XMLDOM树
+		*/
+		var dishes = xmlDocument.getElementsByTagName('dish');
+		//console.log(dishes.length);
+		for(var i=0; i<dishes.length; i++){
+			var dish = dishes[i];//<dish dno="">...</dish>
+			var dno = dish.getAttribute('dno');
+			var name = dish.children[0].innerHTML;
+			var price = dish.children[1].innerHTML;
+			var img = dish.children[2].innerHTML;
+			container.innerHTML += '<div class="dish">....</div>';
+		}
+	}
+	</script>
+ </body>
+</html>
