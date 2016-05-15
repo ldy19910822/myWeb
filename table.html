@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+  <style>
+    #t1{
+      border-collapse:collapse;
+      width:800px;
+      text-align: center;
+    }
+    #t1 tr{
+      height:30px;
+    }
+    #btn{
+      width:800px;
+      height:2em;
+    }
+    .odd{background-color:#a8b418;}
+  </style>
+</head>
+<body>
+	<h1>jquery封装的AJAX函数——table内容生成</h1>
+  <table id="t1" border=1>
+    <thead>
+      <tr>
+        <th>用户编号</th>
+        <th>用户姓名</th>
+        <th>用户电话</th>
+        <th>用户住址</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1045</td>
+        <td>tom</td>
+        <td>46815854</td>
+        <td>hqofeqnfiqeda</td>
+      </tr>
+    </tbody>
+  </table>
+  <button id='btn'>加载更多</button>
+  <script src='js/jquery-1.12.3.min.js'></script>
+
+  <script>
+    $('#btn').click(function(){
+    $.get('table.php',function(data){
+      //console.log(data);
+        //$('#btn>tbody').append(data);
+        for (var i = 0; i < data.length; i++) {
+          $tr='<tr></tr>';
+          $('#t1>tbody').append($tr);
+          for(var key in data[i]){
+            //console.log(data[i][key]);
+            $('#t1>tbody>tr:last-child').append('<td>'+data[i][key]+'</td>');
+          }
+        }
+      });
+      $('#t1 tr:odd').addClass('odd');
+      $('#t1 tr:even').addClass('even');
+    });
+    
+  </script>
+</body>
+</html>
+<!-- homework--2016-5-13 -->
